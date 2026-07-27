@@ -1,7 +1,22 @@
 # design.md
 
+**Introduction**
   In a world where technology began reliance on semiconductors since the twentieth century, raw mining materials become bigger in demand. However, these materials require miners to work in conditions that can severely harm their health mainly through carcinogenic air qualities. In order to solve this problem, a robot must be sent to gather two main qualities of a mine that makes it worth the time of the human miners.
 
   For the robot, it will take shape of a miniature car that can easily fit through small spaces of a mine. This car will have two sensors on it: camera and gas sensor. The camera will identify the ores of the mine. Those ores can be coal, iron, gold, even diamonds if found. The purpose of identifying ores is to evaluate the material gains of the mine, mainly how much would this cave mine would give back in return for the effort. For the purpose of the project, the gas sensor is to test the carbon dioxide levels of the cave. By the human, they will determine whether or not a human should be sent to enter that mine or not.
 
   The robot will be programmed in the Python language. This robot will run an algorithm revolving around two values: value and hazard. These two are scaled from 1 - 10 (1 being least and 10 being most). Value will be determined from the camera's data of the ores spotted from the cave. Hazard will be determined from the carbon dioxide sensor's data from the cave's air. These two will report two feedbacks and the algorithm will decide if it's appropriate to make efforts into a mine or not. For example, if hazard levels are 1 - 5 and value levels are 4 - 10, then humans should be sent to go mining. But if hazard levels exceed level 5 and value levels are 6 - 10, then the mine should be extracted without humans inside it. Otherwise, the mine is not worth it.
+
+**How to run the code**
+
+Requirements:
+- Raspberry Pi 4
+- Freenove Car Model
+- Two Servos
+- Gas Sensor and Analog to Digital board
+- Ultrasonic Sensor
+- Digital Raspberry Pi Camera
+- Freenove Raspberry Pi Library Files
+
+In order to get a **camera feed**, please run **server.py** in the interface folder on VS Code. A popup on the bottom right corner should show up asking you to visit the website for the feed.
+In order to get **ore feed**, please run **app.py** in the tokyo-robotics folder on VS Code.
