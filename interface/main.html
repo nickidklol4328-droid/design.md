@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { margin: 0; display: flex; flex-direction: column; height: 100vh; }
+        .header { display: flex; background: #1a1a1a; padding: 10px 20px; border-bottom: 2px solid #0f0; }
+        .start-btn { 
+            background: #0f0; 
+            color: #000; 
+            border: none; 
+            padding: 10px 20px; 
+            font-size: 16px; 
+            font-weight: bold; 
+            border-radius: 5px; 
+            cursor: pointer;
+            margin-left: auto;
+            transition: background 0.3s;
+        }
+        .start-btn:hover { background: #0d0; }
+        .start-btn.running { background: #f00; }
+        .main { display: flex; flex: 1; }
+        .camera { flex: 1; background: #000; }
+        .data { flex: 1; background: #222; color: #fff; padding: 20px; overflow-y: auto; }
+        img { width: 100%; height: 100%; object-fit: contain; }
+        .sensor { margin: 20px 0; padding: 15px; background: #333; border-radius: 5px; }
+        .label { color: #aaa; font-size: 12px; }
+        .value { color: #0f0; font-size: 24px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 style="margin: 0; color: #fff;">Mining Car Control</h1>
+        <button class="start-btn" id="startBtn">Start Mining</button>
+    </div>
+    <div class="main">
+        <div class="camera">
+            <img id="stream" src="/video_feed" alt="Camera">
+        </div>
+        <div class="data">
+            <h2>Robot Data</h2>
+            <div class="sensor">
+                <div class="label">Distance</div>
+                <div class="value" id="distance">-- cm</div>
+            </div>
+            <div class="sensor">
+                <div class="label">Battery</div>
+                <div class="value" id="battery">-- %</div>
+            </div>
+            <div class="sensor">
+                <div class="label">Motor Speed</div>
+                <div class="value" id="motorSpeed">-- RPM</div>
+            </div>
+            <div class="sensor">
+                <div class="label">CO2</div>
+                <div class="value" id="co2">-- ppm</div>
+            </div>
+            <div class="sensor">
+                <div class="label">FPS</div>
+                <div class="value" id="fps">-- fps</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isRunning = false;
+        const startBtn = document.getElementById('startBtn');
+        
+        // Start/Stop button handler
+        startBtn.addEventListener('click', async () => {
+            try {
+                const response = await fetch('/api/start_mining', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: isRunning ? 'stop' : 'start' })
+                });
+                const data = await response.json();
+                isRunning = data.running;
+                startBtn.textContent = isRunning ? 'Stop Mining' : 'Start Mining';
+                startBtn.classList.toggle('running', isRunning);
+            } catch(e) {
+                console.error('Failed to control mining:', e);
+            }
+        });
+        
+        // Fetch sensor data
+        setInterval(async () => {
+            try {
+                const res = await fetch('/api/sensor_data');
+                const data = await res.json();
+                document.getElementById('distance').textContent = data.distance + ' cm';
+                document.getElementById('battery').textContent = data.battery + ' %';
+                document.getElementById('motorSpeed').textContent = data.motor_speed + ' RPM';
+                document.getElementById('co2').textContent = (data.co2_ppm === null || data.co2_ppm === undefined ? '--' : data.co2_ppm) + ' ppm';
+                document.getElementById('fps').textContent = data.fps + ' fps';
+            } catch(e) {
+                console.error('Failed to fetch sensor data:', e);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
