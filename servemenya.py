@@ -1,3 +1,4 @@
+#Wrritten by Jianhong Huang
 import time
 from servo import Servo
 servo = Servo()
