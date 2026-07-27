@@ -1,3 +1,4 @@
+#Written by Jianhong Huang
 from motor import MotorController
 from ultrasonic import Ultrasonic
 import time
