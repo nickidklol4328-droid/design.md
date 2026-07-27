@@ -1,4 +1,4 @@
-#INITIALLY WRITTEN BY HAND, ASSISTED BY AI
+#INITIALLY WRITTEN BY HAND BY JIANHONG HUANG, ASSISTED BY AI FROM JONATHAN R.
 import car
 from ultrasonic import Ultrasonic
 import servemenya
