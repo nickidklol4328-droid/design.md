@@ -1,3 +1,4 @@
+#Written by Jonathan R.
 from flask import Flask, Response, request, jsonify
 import cv2
 import time
