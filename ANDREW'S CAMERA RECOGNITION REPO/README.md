@@ -80,3 +80,5 @@ than to replace it. I made the design decisions, trained and tested the model
 myself, verified the AI's suggestions before using them, and made sure I
 understood every part of the code that ended up in the project.
 
+Any inquiries about my understanding attained from this project from David I would
+be happy to answer via my email associated with my CIEE canvas account.
